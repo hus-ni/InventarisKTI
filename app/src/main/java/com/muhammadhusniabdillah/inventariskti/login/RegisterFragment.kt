@@ -17,4 +17,8 @@ class RegisterFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_register, container, false)
     }
 
+    // SIDE NOTE!
+    // next
+    // 1. add register function
+    // 2. add login function
 }

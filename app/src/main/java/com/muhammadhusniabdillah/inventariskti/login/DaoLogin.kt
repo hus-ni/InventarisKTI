@@ -16,4 +16,7 @@ interface DaoLogin {
     @Delete
     fun deleteLogin(login: TableLogin): Int
 
+    @Query("select exists(select username from TableLogin where username = :user)")
+    fun isUserExists(user: String): Boolean
+
 }
