@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.muhammadhusniabdillah.inventariskti.login.DaoLogin
 import com.muhammadhusniabdillah.inventariskti.login.TableLogin
 
-@Database(entities = [TableLogin::class], version = 1)
+@Database(entities = [TableLogin::class], version = 1, exportSchema = false)
 abstract class InventarisDB : RoomDatabase() {
     abstract fun loginDao(): DaoLogin
 
