@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:enterAnim="@android:anim/fade_in" />
         <action
             android:id="@+id/action_loginFragment_to_nav_graph_main"
             app:destination="@id/nav_graph_main" />
@@ -24,7 +25,8 @@
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
     <include app:graph="@navigation/nav_graph_main" />
 </navigation>

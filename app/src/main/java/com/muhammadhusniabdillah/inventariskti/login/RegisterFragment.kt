@@ -25,9 +25,9 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         daDb = InventarisDB.getInstance(requireContext())
-         val username = binding.etInputUsernameRegister
-         val password = binding.etInputPasswordRegister
-         val email = binding.etInputEmailRegister
+        val username = binding.etInputUsernameRegister
+        val password = binding.etInputPasswordRegister
+        val email = binding.etInputEmailRegister
 
         // input text watcher
         val usernameTextWatcher = object : TextWatcher {
@@ -46,14 +46,15 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         }
 
         // focus checker
-        username.setOnFocusChangeListener{ _, hasFocus ->
+        username.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 // do nothing
             } else {
                 usernameValidateRegister(username.text)
             }
         }
-        password.setOnFocusChangeListener{_, hasFocus ->
+
+        password.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 // do nothing
             } else {
@@ -65,26 +66,65 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         username.addTextChangedListener(usernameTextWatcher)
         password.addTextChangedListener(passwordTextWatcher)
 
-        binding.btnRegister.setOnClickListener{
+        binding.btnRegister.setOnClickListener {
+            val usernameValue = username.text.toString()
+            val passwordValue = password.text.toString()
+            val emailValue = email.text.toString()
             val registerData = TableLogin(
                 null,
-                username.text.toString(),
-                password.text.toString(),
-                email.text.toString()
+                usernameValue,
+                passwordValue,
+                emailValue
             )
+            when {
+                usernameValue.isEmpty() -> {
+                    binding.etLayoutUsernameRegister.error = "Username must be filled!"
+                }
+                passwordValue.isEmpty() -> {
+                    binding.etLayoutPasswordRegister.error = "Password must be filled!"
+                }
+                else -> {
+                    GlobalScope.async {
+                        val readUsers = daDb!!.loginDao().isUserExists(username.text.toString())
 
-            GlobalScope.async {
-                val registUser =daDb?.loginDao()?.createLogin(registerData)
-                activity?.runOnUiThread{
-                    if (registUser != LoginActivity.FAILURE_CODE) {
-                        Toast.makeText(requireContext(), "Registered Successfully!", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(requireContext(), "Register Failed!", Toast.LENGTH_SHORT).show()
+                        activity?.runOnUiThread {
+                            //check user exist
+                            if (readUsers) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Username ${username.text.toString()} is not avalailable!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                binding.etLayoutUsernameRegister.error = "Username is not available!"
+                            } else {
+                                GlobalScope.async {
+                                    val createUser = daDb!!.loginDao().createLogin(registerData)
+
+                                    activity?.runOnUiThread {
+                                        if (createUser != LoginActivity.FAILURE_CODE) {
+                                            Toast.makeText(
+                                                requireContext(),
+                                                "Registered Successfully!",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                            val backToLoginPage =
+                                                RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
+                                            findNavController().navigate(backToLoginPage)
+                                        } else {
+                                            Toast.makeText(
+                                                requireContext(),
+                                                "Register Failed!",
+                                                Toast.LENGTH_SHORT
+                                            )
+                                                .show()
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
-            val backToLoginPage = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
-            findNavController().navigate(backToLoginPage)
         }
     }
 
