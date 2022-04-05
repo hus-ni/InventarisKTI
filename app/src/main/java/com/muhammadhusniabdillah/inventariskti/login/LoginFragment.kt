@@ -4,16 +4,18 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.view.ViewGroup
 import android.viewbinding.library.fragment.viewBinding
 import androidx.navigation.fragment.findNavController
 import com.muhammadhusniabdillah.inventariskti.InventarisDB
 import com.muhammadhusniabdillah.inventariskti.R
 import com.muhammadhusniabdillah.inventariskti.databinding.FragmentLoginBinding
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
+@DelicateCoroutinesApi
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private val binding: FragmentLoginBinding by viewBinding()
@@ -23,6 +25,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         super.onViewCreated(view, savedInstanceState)
         daDb = InventarisDB.getInstance(requireContext())
 
+        val usernameLogin = binding.etInputUsernameLogin
+        val passwordLogin = binding.etInputPasswordLogin
         // null checker on edit text
         val usernameTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -39,52 +43,71 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         }
 
-        // checker pindah tanpa merubah isi
-        binding.etUsernameLogin.editText?.setOnFocusChangeListener { _, hasFocus ->
+        // checker move without changing input
+        usernameLogin.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 // do nothing
             } else {
-                usernameValidateEditText(binding.etUsernameLogin.editText?.text)
+                usernameValidateEditText(usernameLogin.text)
             }
         }
-        binding.etPasswordLogin.editText?.setOnFocusChangeListener { _, hasFocus ->
+        passwordLogin.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 // do nothing
             } else {
-                passwordValidateEditText(binding.etPasswordLogin.editText?.text)
+                passwordValidateEditText(passwordLogin.text)
             }
         }
 
-        // textwatcher
-        binding.etUsernameLogin.editText?.addTextChangedListener(usernameTextWatcher)
-        binding.etPasswordLogin.editText?.addTextChangedListener(passwordTextWatcher)
+        // text watcher
+        usernameLogin.addTextChangedListener(usernameTextWatcher)
+        passwordLogin.addTextChangedListener(passwordTextWatcher)
 
         // when login button clicked
         binding.btnLogin.setOnClickListener {
+            val usernameValue = usernameLogin.text.toString()
+            val passwordValue = passwordLogin.text.toString()
+            when {
+                usernameValue.isEmpty() -> binding.etLayoutUsernameLogin.error =
+                    "This field must be filled!"
+                passwordValue.isEmpty() -> binding.etLayoutPasswordLogin.error =
+                    "This field must be filled!"
+                else ->
+                    GlobalScope.launch {
+                        val login =
+                            daDb!!.loginDao().isThisUsernamePasswordExists(usernameValue, passwordValue)
 
-//            val checkUserExists = daDb?.loginDao()?.isUserExists(userInput)
-        }
+                        activity?.runOnUiThread {
+                            if (login) {
+                                val toHomePage = LoginFragmentDirections.actionLoginFragmentToHomeFragment(usernameValue)
+                                findNavController().navigate(toHomePage)
+                            }
+                        }
+                    }
+            }
 
-        binding.tvRegister.setOnClickListener {
-            val toRegisterPage = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
-            findNavController().navigate(toRegisterPage)
+            binding.tvRegister.setOnClickListener {
+                val toRegisterPage = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+                findNavController().navigate(toRegisterPage)
+            }
         }
     }
 
     // function validate edittext
     fun usernameValidateEditText(text: Editable?) {
         if (TextUtils.isEmpty(text)) {
-            binding.etUsernameLogin.error = "Username must be filled!"
+            binding.etLayoutUsernameLogin.error = "Username must be filled!"
         } else {
-            binding.etUsernameLogin.error = null
+            binding.etLayoutUsernameLogin.error = null
         }
     }
+
     // function validate edittext
     fun passwordValidateEditText(text: Editable?) {
         if (TextUtils.isEmpty(text)) {
-            binding.etPasswordLogin.error = "Password must be filled!"
+            binding.etLayoutPasswordLogin.error = "Password must be filled!"
         } else {
-            binding.etPasswordLogin.error = null
+            binding.etLayoutPasswordLogin.error = null
         }
     }
 }

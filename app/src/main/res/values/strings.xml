@@ -3,6 +3,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_username_login">Username</string>
     <string name="hint_password_login">Password</string>
+    <string name="hint_passwordConfirm_login">Confirm Password</string>
     <string name="hint_email_register">Email</string>
     <string name="hint_btn_login">Login</string>
     <string name="hint_tv_register">Belum punya akun?</string>

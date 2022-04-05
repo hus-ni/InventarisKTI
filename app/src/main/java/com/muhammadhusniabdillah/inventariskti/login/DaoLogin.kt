@@ -19,4 +19,7 @@ interface DaoLogin {
     @Query("select exists(select username from TableLogin where username = :user)")
     fun isUserExists(user: String): Boolean
 
+    @Query("select exists(select * from TableLogin where username = :username and password = :password)")
+    fun isThisUsernamePasswordExists(username: String, password: String): Boolean
+
 }
