@@ -1,16 +1,17 @@
-package com.muhammadhusniabdillah.inventariskti.login
+package com.muhammadhusniabdillah.inventariskti.home
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Entity
 @Parcelize
-data class TableLogin(
+data class TableHome(
     @PrimaryKey(autoGenerate = true) var id: Int?,
-    var username: String,
-    var password: String,
-    var email: String?
+    var barcode: String,
+    var spec: String,
+    var location: String,
+    var pic: String,
+    var condition: String
 ) : Parcelable

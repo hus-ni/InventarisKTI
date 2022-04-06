@@ -19,20 +19,24 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPrefAndDBStuff()
+        logout()
 
-        sharedPref = PreferencesHelper(requireContext())
-        binding.tvUsernameWelcomeHome.text = sharedPref.getString(Constant.SAVED_USERNAME)
-
-        binding.btnLogoutFromHome.setOnClickListener{
-            sharedPref.clear()
-            showMessage("Logged Out")
-            toLoginPage()
-        }
     }
 
-    private fun toLoginPage() {
-        val toLoginPage = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
-        findNavController().navigate(toLoginPage)
+    private fun sharedPrefAndDBStuff() {
+        daDb = InventarisDB.getInstance(requireContext())
+        sharedPref = PreferencesHelper(requireContext())
+        binding.tvUsernameWelcomeHome.text = sharedPref.getString(Constant.SAVED_USERNAME)
+    }
+
+    private fun logout() {
+        binding.btnLogoutFromHome.setOnClickListener {
+            sharedPref.clear()
+            showMessage("Logged Out")
+            val toLoginPage = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
+            findNavController().navigate(toLoginPage)
+        }
     }
 
     private fun showMessage(message: String) {
