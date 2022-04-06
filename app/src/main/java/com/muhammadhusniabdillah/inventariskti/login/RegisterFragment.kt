@@ -10,9 +10,9 @@ import android.viewbinding.library.fragment.viewBinding
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.muhammadhusniabdillah.inventariskti.InventarisDB
-import com.muhammadhusniabdillah.inventariskti.MainActivity
 import com.muhammadhusniabdillah.inventariskti.R
 import com.muhammadhusniabdillah.inventariskti.databinding.FragmentRegisterBinding
+import com.muhammadhusniabdillah.inventariskti.preferences.Constant
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -123,7 +123,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                                         val createUser = daDb!!.loginDao().createLogin(registerData)
 
                                         activity?.runOnUiThread {
-                                            if (createUser != MainActivity.FAILURE_CODE) {
+                                            if (createUser != Constant.FAILURE_CODE) {
                                                 Toast.makeText(
                                                     requireContext(),
                                                     "Registered Successfully!",
