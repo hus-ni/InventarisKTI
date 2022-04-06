@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="128dp"
+    app:cardCornerRadius="12dp"
+    android:layout_margin="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_data_barcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="barcode"
+        app:layout_constraintBottom_toTopOf="@id/tv_data_spec"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_data_spec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="spec"
+        app:layout_constraintBottom_toTopOf="@id/tv_data_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_data_barcode" />
+
+    <TextView
+        android:id="@+id/tv_data_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="location"
+        app:layout_constraintBottom_toTopOf="@id/tv_data_pic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_data_spec" />
+
+    <TextView
+        android:id="@+id/tv_data_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pic"
+        app:layout_constraintBottom_toTopOf="@id/tv_data_condition"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_data_location"/>
+
+    <TextView
+        android:id="@+id/tv_data_condition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="condition"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_data_pic" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

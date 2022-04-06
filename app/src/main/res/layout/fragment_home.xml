@@ -23,18 +23,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/view_recycler_home"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="@dimen/big_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_logoutFrom_home">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/view_recycler_home"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@id/guideline_top"
+        tools:listitem="@layout/recycler_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_fab_home"
@@ -44,9 +49,9 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/cd_fab_home"
         android:src="@drawable/ic_add"
-        app:rippleColor="@color/purple_200"
         app:fabSize="auto"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/purple_200" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

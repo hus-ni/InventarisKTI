@@ -38,5 +38,22 @@
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:enterAnim="@android:anim/fade_in"/>
+        <action
+            android:id="@+id/action_homeFragment_to_addDataFragment"
+            app:destination="@id/addDataFragment" />
+        <argument
+            android:name="inventarisData"
+            app:argType="com.muhammadhusniabdillah.inventariskti.home.TableHome"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/addDataFragment"
+        android:name="com.muhammadhusniabdillah.inventariskti.home.AddDataFragment"
+        android:label="fragment_add_data"
+        tools:layout="@layout/fragment_add_data" >
+        <action
+            android:id="@+id/action_addDataFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
