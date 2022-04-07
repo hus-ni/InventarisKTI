@@ -55,8 +55,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun fabAction() {
         binding.btnFabHome.setOnClickListener{
-            val toAddPage = HomeFragmentDirections.actionHomeFragmentToAddDataFragment()
-            findNavController().navigate(toAddPage)
+            val toScannerPage = HomeFragmentDirections.actionHomeFragmentToScannerFragment()
+            findNavController().navigate(toScannerPage)
         }
     }
 

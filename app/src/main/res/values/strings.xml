@@ -11,4 +11,21 @@
     <string name="title_register">Register</string>
     <string name="btn_logout_home">Logout</string>
     <string name="cd_fab_home">Floating Action Button Home</string>
+    <string name="et_add_barcode">Barcode</string>
+    <string name="et_add_spesifikasi">Spesifikasi</string>
+    <string name="et_add_lokasi">Lokasi</string>
+    <string name="et_add_pic">User</string>
+    <string name="et_add_description">Description</string>
+    <string name="btn_add">Add</string>
+
+    <string-array name="location">
+        <item>A.1.1</item>
+        <item>A.1.2</item>
+        <item>B.1.1</item>
+        <item>B.1.2</item>
+        <item>C.1.1</item>
+        <item>C.1.2</item>
+        <item>B - KTI</item>
+        <item>B - Gudang</item>
+    </string-array>
 </resources>

@@ -41,6 +41,9 @@ android {
 
 dependencies {
 
+    //barcode scanner
+    implementation 'uk.co.brightec.kbarcode:kbarcode:1.3.0'
+
     //view binding custom lib
     implementation 'com.github.yogacp:android-viewbinding:1.0.4'
 

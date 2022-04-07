@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".home.scanner.ScannerFragment">
+
+    <uk.co.brightec.kbarcode.BarcodeView
+        android:id="@+id/view_scanner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cameraFacing="back"
+        app:formats="ean"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:previewScaleType="centerCrop"
+        app:sort="central" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/black_15"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_scanner_focusbracket"
+        app:tint="@color/teal_200"
+        app:layout_constraintBottom_toBottomOf="@+id/view_scanner"
+        app:layout_constraintEnd_toEndOf="@+id/view_scanner"
+        app:layout_constraintStart_toStartOf="@+id/view_scanner"
+        app:layout_constraintTop_toTopOf="@+id/view_scanner"
+        app:layout_constraintWidth_percent="0.4"
+        tools:ignore="ContentDescription" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
